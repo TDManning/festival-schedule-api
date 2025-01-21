@@ -10,7 +10,6 @@ class User < ApplicationRecord
     raise ActiveRecord::RecordNotFound, 'User not found'
   end
 
-  # Add a show to the user's schedule
   def add_show_to_schedule(show_id, favorited = false)
     show = Show.find(show_id)
     user_show = users_shows.find_or_initialize_by(show: show)
