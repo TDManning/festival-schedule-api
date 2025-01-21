@@ -74,3 +74,18 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+# spec/rails_helper.rb
+RSpec.configure do |config|
+  config.include FactoryBot::Syntax::Methods
+end
+
+# spec/rails_helper.rb
+RSpec.configure do |config|
+  # Add the `json` helper method to parse JSON responses
+  config.include Module.new {
+    def json
+      JSON.parse(response.body)
+    end
+  }
+end
