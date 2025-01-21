@@ -4,7 +4,7 @@ module Api
       before_action :find_user
 
       def index
-        render json: UserSerializer.new(@user)
+        render json: ShowSerializer.new(@user.shows)
       end
 
       def create
