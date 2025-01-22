@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :shows, only: [:index]
-      resources :users, only: [] do
+      resources :users, only: [:index] do
         collection do
           get 'shows', to: 'users#index'
         end

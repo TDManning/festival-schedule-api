@@ -10,14 +10,13 @@ class User < ApplicationRecord
     raise ActiveRecord::RecordNotFound, 'User not found'
   end
 
-  def add_show_to_schedule(show_id, favorited = false)
+  def add_show_to_schedule(show_id)
     show = Show.find(show_id)
-    user_show = users_shows.find_or_initialize_by(show: show)
-
+    user_show = users_shows.find_or_initialize_by(show_id: show.id)
+  
     if user_show.persisted?
       { error: 'Show already in schedule', status: :unprocessable_entity }
     else
-      user_show.favorited = favorited
       user_show.save
       { success: user_show }
     end

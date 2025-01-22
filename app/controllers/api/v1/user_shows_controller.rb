@@ -8,14 +8,13 @@ module Api
       end
 
       def create
-        result = @user.add_show_to_schedule(params[:show_id], params[:favorited] || false)
-
-        if result[:success]
-          render json: ShowSerializer.new(result[:success].show), status: :created
-        else
+        result = @user.add_show_to_schedule(params[:show_id])
+        if result[:error]
           render json: ErrorSerializer.format(result[:error]), status: result[:status]
+        else
+          render json: ShowSerializer.new(result[:success].show), status: :created
         end
-      end
+      end      
 
       def destroy
         user_show = @user.users_shows.find_by!(show_id: params[:id])
@@ -25,7 +24,6 @@ module Api
         render json: ErrorSerializer.format('Show not found in schedule'), status: :not_found
       end
       
-
       private
 
       def find_user

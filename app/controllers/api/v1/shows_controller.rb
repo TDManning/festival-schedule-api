@@ -6,7 +6,6 @@ module Api
         shows = Show.all
         render json: ShowSerializer.new(shows)
       end
-      
     end
   end
 end
