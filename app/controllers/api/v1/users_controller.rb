@@ -5,8 +5,7 @@ module Api
       def index
         users = User.includes(users_shows: :show)
         render json: UserSerializer.new(users)
-      end
-      
+      end 
     end
   end
 end
