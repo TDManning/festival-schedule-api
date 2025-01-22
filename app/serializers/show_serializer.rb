@@ -1,5 +1,5 @@
 class ShowSerializer
   include JSONAPI::Serializer
 
-  attributes :id, :artist, :location, :image_url
+  attributes :id, :artist, :location, :time_slot, :image_url
 end

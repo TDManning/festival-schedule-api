@@ -20,10 +20,11 @@ module Api
       def destroy
         user_show = @user.users_shows.find_by!(show_id: params[:id])
         user_show.destroy
-        head :no_content
+        render json: { message: "Show successfully removed from schedule" }, status: :ok
       rescue ActiveRecord::RecordNotFound
         render json: ErrorSerializer.format('Show not found in schedule'), status: :not_found
       end
+      
 
       private
 

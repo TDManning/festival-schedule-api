@@ -8,57 +8,86 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-# Clear existing data
 User.destroy_all
 Show.destroy_all
 UsersShow.destroy_all
 
-# Create users
-users = User.create!([
-  { username: 'RockLover', first_name: 'Alice', last_name: 'Smith' },
-  { username: 'PopMaster', first_name: 'Bob', last_name: 'Jones' },
-  { username: 'StageKing', first_name: 'Carol', last_name: 'Taylor' },
-  { username: 'MelodyFan', first_name: 'Dan', last_name: 'Brown' },
-  { username: 'BassDropper', first_name: 'Eve', last_name: 'Davis' }
-])
-puts "Created #{users.count} users"
-
-bands = [
-  'Taylor Swift', 'Ed Sheeran', 'Beyoncé', 'Weird Al', 'Adele', 
-  'Billie Eilish', 'The Weeknd', 'Bruno Mars', 'Harry Styles', 
-  'Ariana Grande', 'Dua Lipa', 'Justin Bieber', 'Lady Gaga', 
-  'Post Malone', 'Khalid', 'Shawn Mendes', 'Rihanna', 'Coldplay', 
-  'Maroon 5', 'Imagine Dragons'
+# Create test users
+users = [
+  User.create!(
+    username: 'rockstar_rachel',
+    first_name: 'Rachel',
+    last_name: 'Groove'
+  ),
+  User.create!(
+    username: 'jammin_jake',
+    first_name: 'Jake',
+    last_name: 'Rhythm'
+  ),
+  User.create!(
+    username: 'dancing_diana',
+    first_name: 'Diana',
+    last_name: 'Harmony'
+  ),
+  User.create!(
+    username: 'melody_mike',
+    first_name: 'Mike',
+    last_name: 'Melody'
+  ),
+  User.create!(
+    username: 'vocal_victor',
+    first_name: 'Victor',
+    last_name: 'Voice'
+  ),
+  User.create!(
+    username: 'drummer_danny',
+    first_name: 'Danny',
+    last_name: 'Beat'
+  )
 ]
 
-# Create shows (one band per stage for all time slots)
-time_slots = (1..5).to_a
-shows = []
+time_slots = [
+  "12:00 PM - 1:00 PM",
+  "1:30 PM - 2:30 PM",
+  "3:00 PM - 4:00 PM",
+  "4:30 PM - 5:30 PM",
+  "6:00 PM - 7:00 PM"
+]
 
-bands.each_with_index do |band, index|
-  stage = "Stage #{index + 1}"
+stages = [
+  "Main Stage", "River Stage", "Hilltop Stage", "Meadow Stage", 
+  "Beach Stage", "Garden Stage", "City Stage"
+]
 
-  time_slots.each do |time_slot|
-    shows << {
-      artist: band,
-      location: stage,
-      time_slot: time_slot,
-      image_url: "https://example.com/#{band.downcase.gsub(' ', '_')}.jpg"
-    }
-  end
+bands = [
+  "The Rolling Stones", "Queen", "Fleetwood Mac", "The Beatles", 
+  "Nirvana", "Green Day", "Red Hot Chili Peppers", "Arctic Monkeys",
+  "Coldplay", "Imagine Dragons", "Linkin Park", "Foo Fighters", 
+  "The Killers", "Muse", "Paramore", "Blink-182", "Maroon 5", 
+  "The Black Keys", "Panic! At The Disco", "Twenty One Pilots", 
+  "Kings of Leon", "The Strokes", "Fall Out Boy", "The Lumineers", 
+  "Vampire Weekend", "The 1975", "Of Monsters and Men", "Tame Impala", 
+  "MGMT", "The White Stripes"
+]
+
+bands.each do |band|
+  Show.create!(
+    artist: band,
+    location: stages.sample,
+    time_slot: rand(1..5), # Corrected from "1..5" (invalid syntax) to a valid range
+    image_url: "https://via.placeholder.com/150?text=#{band.tr(' ', '+')}"
+  )
 end
-
-Show.create!(shows)
-puts "Created #{shows.count} shows"
 
 users.each do |user|
-  favorite_shows = Show.all.sample(3)
-  favorite_shows.each do |show|
-    UsersShow.create!(user: user, show: show, favorited: true)
+  shows = Show.order("RANDOM()").limit(5)
+  shows.each do |show|
+    UsersShow.create!(
+      user: user,
+      show: show,
+      favorited: [true, false].sample # Ensures favorited is either true or false
+    )
   end
 end
-puts "Assigned favorite shows to users"
 
-
-
-
+puts "Seed data created successfully!"

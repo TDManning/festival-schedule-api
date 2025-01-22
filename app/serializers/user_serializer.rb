@@ -9,7 +9,7 @@ class UserSerializer
         id: user_show.show.id,
         artist: user_show.show.artist,
         location: user_show.show.location,
-        # time_slot: user_show.show.time_slot,
+        time_slot: user_show.show.time_slot,
         image_url: user_show.show.image_url,
         favorited: user_show.favorited
       }

@@ -11,7 +11,7 @@ RSpec.describe 'UserShows API', type: :request do
       get "/api/v1/users/#{user.id}/shows"
   
       expect(response).to have_http_status(:ok)
-      expect(json['data'].length).to eq(1) # Should match the specific test setup
+      expect(json['data'].length).to eq(1) 
       expect(json['data'].first['attributes']['artist']).to eq(show.artist)
     end
   end
