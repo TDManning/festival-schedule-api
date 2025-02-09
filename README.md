@@ -2,6 +2,8 @@
 
 This Rails API serves as the backend for the Festival Scheduler application. It allows users to view, manage, and interact with festival shows and schedules. The API provides endpoints for managing shows, user schedules, and admin functionalities.
 
+**This solo project was fully created in under 16 hours, including front end, as part of a take-home challenge**
+
 ---
 
 ## 🚀 Summary
