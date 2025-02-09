@@ -85,7 +85,7 @@ users.each do |user|
     UsersShow.create!(
       user: user,
       show: show,
-      favorited: [true, false].sample # Ensures favorited is either true or false
+      # favorited: [true, false].sample 
     )
   end
 end
